@@ -9,6 +9,7 @@ exports.index = function(req, res) {
   });
 };
 
+<<<<<<< HEAD
 
 var fs = require('fs');
 var mongoose = require('mongoose');
@@ -56,3 +57,10 @@ exports.upload = function(req, res) {
 
 
 
+=======
+exports.editor = function(req, res) {
+  res.render('editor', 
+  	{ title: 'Editor' }
+  );
+};
+>>>>>>> 9f5e280b5ffdd6f9ce272bc87dce2d281a07fd18

@@ -10,6 +10,7 @@ var dropArea  = $('#drop_area');
 var dropTitle = $('#drop_area_title');
 var list = [];
 var totalSize = 0;
+var totalProgress =0;
 var fileN;
 
 
@@ -44,24 +45,6 @@ $(function(){
     dropArea.bind('drop', drop); 
 });
 
-
-// Take care of next file when upload is finished
-function handleComplete(size) {
-    uploadNext();
-}
-
-// Update progression
-function handleProgress(event) {
-    var progress = totalProgress + event.loaded;
-}
-
-// On state changed ajax answer
-function stateChanged() {
-  if (xhr.readyState == 4  && xhr.status == 200 ){
-	var result = xhr.responseText; // Get the reponse text
-  }
-}
-
 // Process the files on drop
 function processFiles(filelist) {
 
@@ -74,6 +57,7 @@ function processFiles(filelist) {
         totalSize += filelist[i].size;
     }
     uploadNext();
+
 }
 
 
@@ -114,25 +98,8 @@ function uploadFile(file, status) {
         }
     });
 
+   uploadNext();
 
- //    // now post a new XHR request
- //    xhr = new XMLHttpRequest();
-
- //    xhr.onreadystatechange = stateChanged;
-
- //    xhr.open('POST', 'http://localhost:3000/upload');
-    
- //    xhr.onload = function () {
- //      	if (xhr.status === 200) {
- //            console.log('all done: ' + xhr.status);
-          
- //        } else {
- //        		console.log(xhr);
- //            console.log('Something went terribly wrong...');
- //        }
-	// };
-	// debugger;
-	// xhr.send(formData);
 }
 
 // Upload the next file when the previous one is done
@@ -141,16 +108,13 @@ function uploadNext() {
     if (list.length) {
 
         var nextFile = list.shift();
-
-        if (nextFile.size >= 262144000) { // 256 kb
-            handleComplete(nextFile.size);
-
-        } else {
-            fileN = nextFile.name;
-            uploadFile(nextFile, status);
-        }
+        fileN = nextFile.name;
+        uploadFile(nextFile, status);
+        
     } else {
-        dropArea.className = '';
+        setTimeout(function(){dropTitle.css('display','none')}, 2000);
+        
     }
+
 }
 
