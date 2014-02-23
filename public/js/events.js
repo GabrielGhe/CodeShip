@@ -31,12 +31,16 @@ $(function(){
         event.preventDefault();
         event.stopPropagation();
         dropArea.css('box-shadow','0 0 0px rgba(51,153,255,0.8)');
+        dropTitle.html('DROP YOUR FILE HERE');
     }    
     function drop(event) {
         event.preventDefault();
         event.stopPropagation();
-        processFiles(event.originalEvent.dataTransfer.files);
         dropArea.css('box-shadow','0 0 0px rgba(51,153,255,0.8)');
+        var files = event.originalEvent.dataTransfer.files;
+        setTimeout(function(){
+            processFiles(files)}
+            ,2500);
     }
         
     dropArea.bind('dragenter', dragenter);
