@@ -9,7 +9,7 @@
 	height:500px;
 	margin:50px auto;
 	box-shadow: 0 0 0px rgba(51,153,255,0.5);
-	border: 1px solid rgba(0,0,0,0.5);
+	border: 1px solid #046971;
 	font-family: 'Gothic', sans-serif;
 }
 
@@ -29,18 +29,103 @@
 	font-size: 50px;
 	font-weight: 100;
 	padding-top: 200px;
+	color:#046971;
+}
+
+.comment {
+	position: absolute;
+	width: 500px;
+	border-radius: 10px;
+	padding: 15px;
+	background-color: rgba(11,13,12,0.9);
+	z-index: 1000;
+	color: #D6BA8A;
+	text-align: center;
+	font-size: 20px;
+	box-shadow: 0 0 30px rgba(0,0,0,0.9);
+}
+
+.comment span {
+	font-style: italic;
+	color:#C71B1B;
+}
+
+.comment span:before {
+	content: "\"";
+}
+.comment span:after {
+	content: "\"";
+}
+.comment input {
+	width: 90%;
+	color: #000;
+	padding: 5px;
+}
+
+.comment .submit {
+	margin: 5px;
+	width: 100px;
 }
 
 .editor-container {
-        width: 70%
+    width: 70%;
+    margin-bottom: 50px;
+    border: solid 1px #000;
+    background-color: #36464A;
 }
 
-.chat-container,
+
+.chat-container{
+	width: 30%;
+    position:fixed;
+    bottom:0;right:0;
+    background-color: #36464A;
+    border: solid 1px #000;
+}
+
 .share-container {
+<<<<<<< HEAD
         width: 30%;
         min-height:100px;
+=======
+    width: 30%;
+    color:#fff;
+    position: absolute;
+    right:0;
+    background-color: #36464A;
+    border: solid 1px #000;
+    text-align: center;
+    letter-spacing: 10px;
+}
+
+
+.chat-container h2 {
+    margin: 10px;
+    color: #fff;
+    max-height: 70%;
+}
+
+.editor-container h2 {
+    margin: 10px;
+    color: #fff;
+}
+
+.share-container h2 {
+    margin: 10px;
+    color: #fff;
+    font-family: 'Gothic', sans-serif;
+    text-align: left;
+}
+
+.share-container i {
+	font-size: 50px;
+	color:#000;
+	cursor: pointer;
+>>>>>>> 91025d0c44961901114cf057147942bdeebca73d
 }
 
 .containers {
-        float: left
+    float: left;
+    box-shadow: 0 0 30px rgba(0,0,0,0.9);
+
 }

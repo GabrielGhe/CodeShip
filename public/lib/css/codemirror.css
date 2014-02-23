@@ -2,8 +2,8 @@
 
 .CodeMirror {
   font-family: monospace;
+  border: 1px solid #000;
   height: auto;
-/*  height: 100%; */
 }
 .CodeMirror-scroll {
   overflow-y: hidden;

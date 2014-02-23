@@ -36,6 +36,7 @@ $(function(){
         event.preventDefault();
         event.stopPropagation();
         processFiles(event.originalEvent.dataTransfer.files);
+        dropArea.css('box-shadow','0 0 0px rgba(51,153,255,0.8)');
     }
         
     dropArea.bind('dragenter', dragenter);
@@ -151,26 +152,6 @@ function uploadFile(file, status) {
         	// STOP LOADING SPINNER
         }
     });
-
-
- //    // now post a new XHR request
- //    xhr = new XMLHttpRequest();
-
- //    xhr.onreadystatechange = stateChanged;
-
- //    xhr.open('POST', 'http://localhost:3000/upload');
-    
- //    xhr.onload = function () {
- //      	if (xhr.status === 200) {
- //            console.log('all done: ' + xhr.status);
-          
- //        } else {
- //        		console.log(xhr);
- //            console.log('Something went terribly wrong...');
- //        }
-	// };
-	// debugger;
-	// xhr.send(formData);
 }
 
 // Upload the next file when the previous one is done
@@ -191,4 +172,7 @@ function uploadNext() {
         dropArea.className = '';
     }
 }
+
+
+
 

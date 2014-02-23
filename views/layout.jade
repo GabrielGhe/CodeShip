@@ -11,7 +11,6 @@ html(ng-app="Chat", lang="en")
     != css('inner_content')
     != js('JQuery')
     != js('Typer')
-    != js('events')
     != js('main')
     title= title
     link(rel='stylesheet', href='/lib/css/codemirror.css')
@@ -29,3 +28,4 @@ html(ng-app="Chat", lang="en")
             block content
         include partials/footer
 
+    != js('events')
