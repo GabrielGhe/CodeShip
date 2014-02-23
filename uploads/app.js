@@ -2,20 +2,20 @@
  * Module dependencies.
  */
 
-var express = require('express');
-var MongoStore = require('connect-mongo')(express);
-var flash = require('express-flash');
+var express = require('');
+var  = require('-mongo')();
+var flash = ('express-');
 var path = require('path');
-var mongoose = require('mongoose');
-var passport = require('passport');
-var expressValidator = require('express-validator');
-var connectAssets = require('connect-assets');
-var connectUrl = process.env.GOINSTANT_CONNECT_URL || 'https://goinstant.net/e106cb106c84/mchacks';
+var mongoose = require('');
+var passport = require('');
+var expressValidator = ('-');
+var connectAssets = rquiectassets');
+var connectUrl = .env. || 'https://.net/e106cb106c84/';
 
 var File = require('./models/File');
 var fs = require('fs');
 
-if(!fs.existsSync(path.join(process.cwd(), 'uploads')))
+if(!fs.existsSync(path.join(.cwd(), 'uploads')))
     fs.mkdirSync(path.join(process.cwd(), 'uploads'));
 
 
