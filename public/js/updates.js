@@ -1,14 +1,3 @@
-var Logger = {
-  incoming: function(message, callback) {
-    console.log('incoming', message);
-    callback(message);
-  },
-  outgoing: function(message, callback) {
-    console.log('outgoing', message);
-    callback(message);
-  }
-};
-
 var myCodeMirror;
 
 function s4() {
@@ -35,7 +24,6 @@ fayeClient.subscribe("/"+id+"/add", function(message){
 fayeClient.subscribe("/"+id+"/delete", function(message){
     fayeClient.handleMessage(message);   
 });
-fayeClient.addExtension(Logger);
 
 function generateCode(){
     local_data = local_data.slice(1,local_data.length - 1);
