@@ -1,6 +1,7 @@
 extends layout
 
 block content
+    div#fb-root
     .editor-container.containers
         h2= title
         div#editor(ng-controller='UpdateCtrl')
@@ -46,11 +47,12 @@ block content
     script(type='text/javascript').
         var id ='!{id}'
         var local_data ='!{content}'
+        var mo = '!{mode}'
     <script src='/js/chat.js'></script>
     <script src='/js/updates.js'></script>
     .share-container.containers
         h2 Share
         button.btn.btn-default.btn-share.btn-block#email-submit Via Email
         button.btn.btn-default.btn-share.btn-block.btn-github#text-submit Via Github
-        button.btn.btn-default.btn-share.btn-block.btn-facebook#facebook-submit Via Facebook
+        button.btn.btn-default.btn-share.btn-block.btn-facebook#facebook-submit(data-href="http://developers.facebook.com/docs/plugins/" data-type="button_count") Via Facebook
         button.btn.btn-default.btn-share.btn-block.btn-google-plus#google-submit Via Google+

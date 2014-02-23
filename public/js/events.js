@@ -41,7 +41,49 @@ $(function(){
     dropArea.bind('dragenter', dragenter);
     dropArea.bind('dragleave', dragleave);
     dropArea.bind('dragover', dragover);
-    dropArea.bind('drop', drop); 
+    dropArea.bind('drop', drop);
+
+    /**
+     * Click event for the Gist Button
+     */
+    $("#text-submit").click(function(){
+        console.log(mo);
+
+        var d = {
+            "description" : "Gist posted from CodeShip",
+            "public": true,
+            "files": {
+                mo: {
+                    "content": local_data
+                }
+            }
+        }
+        console.log(d);
+
+
+        // create post request
+        request = $.ajax({
+            url: "https://api.gihub.com/gists",
+            type: "post",
+            data: d
+        });
+
+        // callback handler that will be called on fail
+        request.fail(function (jqXHR, textStatus, errorThrown){
+            // log the error to the console
+            console.error(
+                "The following error occured: "+
+                textStatus, errorThrown
+            );
+        });
+
+        // callback handler that will be called on success
+        request.success(function (response, textStatus, jqXHR){
+            // log a message to the console
+            console.log("Hooray, it worked!");
+            console.log(response);
+        });
+    });
 });
 
 
