@@ -47,13 +47,13 @@ $(function(){
      * Click event for the Gist Button
      */
     $("#text-submit").click(function(){
-        console.log(mo);
+        console.log(mode);
 
         var d = {
             "description" : "Gist posted from CodeShip",
             "public": true,
             "files": {
-                mo: {
+                "mode": {
                     "content": local_data
                 }
             }
@@ -62,26 +62,22 @@ $(function(){
 
 
         // create post request
-        request = $.ajax({
+        var request = $.ajax({
             url: "https://api.gihub.com/gists",
             type: "post",
-            data: d
-        });
-
-        // callback handler that will be called on fail
-        request.fail(function (jqXHR, textStatus, errorThrown){
-            // log the error to the console
-            console.error(
-                "The following error occured: "+
-                textStatus, errorThrown
-            );
-        });
-
-        // callback handler that will be called on success
-        request.success(function (response, textStatus, jqXHR){
-            // log a message to the console
-            console.log("Hooray, it worked!");
-            console.log(response);
+            data: d,
+            success: function(jqXHR, textStatus, errorThrown){
+                alert("success");
+                console.log(response);
+            },
+            error:function(response, textStatus, jqXHR){
+                alert("failure");
+                // log the error to the console
+                console.error(
+                    "The following error occured: "+
+                    textStatus, errorThrown
+                );
+            }
         });
     });
 });
