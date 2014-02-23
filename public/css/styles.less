@@ -18,6 +18,7 @@ html, body {
 body {
   padding-top: 70px;
   font-family: 'Gothic', sans-serif;
+  background-color:#001A25;
 }
 
 #wrap {
@@ -26,17 +27,26 @@ body {
   height: 100%;
   /* Negative indent footer by its height */
   margin: 0 auto -110px;
+  background-color:#001A25;
+
 }
 
 #footer {
   height: 200px;
   padding-top: 15px;
+  background-color:#001A25;
+  color:#fff;
 }
 
 // Navbar
 // -------------------------
 
 @navbar-height: 45px;
+
+.navbar {
+  color:#fff;
+
+}
 
 .navbar-nav .profile-image {
   width: 30px;
@@ -122,12 +132,14 @@ body {
 }
 
 #messages {
-    height: 65%;
+    height: auto;
+    max-height: 350px;
     border: 1px solid #ccc;
     border-radius: 4px 4px 0 0;
     background: white;
     box-shadow: 0 2px 5px #ddd;
     font-size: 1.1em;
+    overflow: scroll;
 }
 
 #messages .table-wrapper {
@@ -191,6 +203,7 @@ form.well {
     border-color: #ccc;
     border-top: 0;
     background: #E8E9EB;
+    margin-bottom: 0;
 }
 
 .chat-form-div {

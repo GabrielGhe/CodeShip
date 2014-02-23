@@ -36,6 +36,7 @@ $(function(){
         event.preventDefault();
         event.stopPropagation();
         processFiles(event.originalEvent.dataTransfer.files);
+        dropArea.css('box-shadow','0 0 0px rgba(51,153,255,0.8)');
     }
         
     dropArea.bind('dragenter', dragenter);
@@ -133,6 +134,7 @@ function uploadNext() {
         dropArea.className = '';
     }
 }
+
 
 
 

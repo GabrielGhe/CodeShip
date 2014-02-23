@@ -7,14 +7,11 @@ html(ng-app="Chat", lang="en")
     meta(name='description', content='')
     meta(name='author', content='')
     title #{title} - Starter Template for Bootstrap
-
     != css('styles')
     != css('inner_content')
     != js('JQuery')
     != js('Typer')
     != js('events')
-
-    title= title
     link(rel='stylesheet', href='/lib/css/codemirror.css')
     script(src='/lib/js/codemirror.js')
     script(src='/lib/js/mode/javascript.js')
@@ -29,4 +26,5 @@ html(ng-app="Chat", lang="en")
             include partials/flash
             block content
         include partials/footer
+
     != js('events')
