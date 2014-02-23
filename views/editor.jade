@@ -50,7 +50,19 @@ block content
     <script src='/js/updates.js'></script>
     .share-container.containers
         h2 Share
-        button.btn.btn-default.btn-share.btn-block#email-submit Via Email
+        button.btn.btn-default.btn-share.btn-block#email-submit(data-toggle='modal' data-target='#emailModal') Via Email
         button.btn.btn-default.btn-share.btn-block.btn-github#text-submit Via Github
         button.btn.btn-default.btn-share.btn-block.btn-facebook#facebook-submit Via Facebook
         button.btn.btn-default.btn-share.btn-block.btn-google-plus#google-submit Via Google+
+        #emailModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='emailModal', aria-hidden='true')
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                h4.modal-title Share By Email
+              .modal-body
+                label Email
+                input#share-email-input(text='email', placeholder='Email')
+              .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-primary#email-submit-confirm(type='button') Send

@@ -6,6 +6,8 @@ var _ = require('underscore');
 var graph = require('fbgraph');
 var Github = require('github-api');
 var twilio = require('twilio')(secrets.twilio.sid, secrets.twilio.token);
+var sendgrid  = require('sendgrid')(secrets.sendgrid.user, secrets.sendgrid.password);
+
 
 /**
  * GET /api
@@ -16,6 +18,23 @@ exports.getApi = function(req, res) {
   res.render('api/index', {
     title: 'API Browser'
   });
+};
+
+exports.sendEmail = function(req, res){
+    var email = req.body.email,
+	url = req.body.url;
+    sendgrid.send({
+	to:       email,
+	from:     'sharing@codeship.com',
+	subject:  'A friend has shared some code with you',
+	text:     'Hey,\n\nA friend of yours wants to share some code with you. You can find it here: '+url+'\n\nEnjoy,'
+    }, function(err, json) {
+	if (err) {
+	    console.error(err);
+	    return res.send(500,err);
+	}
+	return res.send(200);
+    });
 };
 
 /**
