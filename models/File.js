@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
-
 var fileSchema = new mongoose.Schema({
+    mode : String,
     filePath : String,
     comments :[{
 	content: String,
@@ -10,8 +10,9 @@ var fileSchema = new mongoose.Schema({
     }]
 });
 
-fileSchema.statics.newFile = function(filePath, cb){
+fileSchema.statics.newFile = function(filePath, mode, cb){
     var file = new this({
+	mode: mode,
 	filePath : filePath
     }).save(cb);
 };

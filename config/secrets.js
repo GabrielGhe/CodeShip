@@ -5,8 +5,8 @@ module.exports = {
   sessionSecret: "Your Session Secret goes here",
 
   sendgrid: {
-    user: 'Your SendGrid Username',
-    password: 'Your SendGrid Password'
+    user: 'CodeShip',
+    password: 'emc2trooper'
   },
 
   facebookAuth: true,
