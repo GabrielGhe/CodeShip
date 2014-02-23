@@ -37,7 +37,7 @@ chat.controller('UpdateCtrl', function($scope){
 	    value: generateCode(),
 	    lineNumbers: true,
 	    matchBrackets: true,
-	    mode:  "javascript"
+	    mode:  mode
 	});
 
 	myCodeMirror.on("change", function(cm, change) {
