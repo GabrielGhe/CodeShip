@@ -1,13 +1,15 @@
 var Logger = {
   incoming: function(message, callback) {
-//    console.log('incoming', message);
+    console.log('incoming', message);
     callback(message);
   },
   outgoing: function(message, callback) {
-//    console.log('outgoing', message);
+    console.log('outgoing', message);
     callback(message);
   }
 };
+
+var myCodeMirror;
 
 function s4() {
   return Math.floor((1 + Math.random()) * 0x10000)
@@ -21,15 +23,18 @@ function guid() {
 }
 
 var uuid = guid();
-
 var fayeClient = new Faye.Client('http://localhost:3000/faye',
 			      {
 				  timeout: 120,
 				  retry : 10
 			      });
 
-fayeClient.subscribe("/"+id+"/add", fayeClient.handleMessage);
-fayeClient.subscribe("/"+id+"/delete", fayeClient.handleMessage);
+fayeClient.subscribe("/"+id+"/add", function(message){
+    fayeClient.handleMessage(message);   
+});
+fayeClient.subscribe("/"+id+"/delete", function(message){
+    fayeClient.handleMessage(message);   
+});
 fayeClient.addExtension(Logger);
 
 function generateCode(){
@@ -39,10 +44,8 @@ function generateCode(){
 }
 
 chat.controller('UpdateCtrl', function($scope){
-    $scope.updates = [];
-
     angular.element(document).ready(function(){
-	var myCodeMirror = CodeMirror(document.getElementById("editor"), {
+	 myCodeMirror = CodeMirror(document.getElementById("editor"), {
 	    value: generateCode(),
 	    lineNumbers: true,
 	    matchBrackets: true,
@@ -50,59 +53,97 @@ chat.controller('UpdateCtrl', function($scope){
 	});
 
 	myCodeMirror.on("change", function(cm, change) {
-
 		var toSend = {
 			source: uuid,
 			fileId: id,
 			from: change.from,
 			to: change.to
-    	};
-
+    		};
 	    switch(change.origin){
 
-		    case "paste":
-				toSend["text"] = change.text[0];
-				fayeClient.publish("/"+id+"/add", toSend, function(err){
-					console.log( "Error ",err );
-			    });
-				break;
+	    case "paste":
+		toSend["text"] = change.text[0];
+		toSend["type"] = "add";
+		fayeClient.publish("/"+id+"/add", toSend, function(err){
+		    console.log( "Error ",err );
+		});
+		break;
 
-		    case "cut":
-				toSend["text"] = change.removed[0];
-				fayeClient.publish("/"+id+"/delete", toSend, function(err){
-					console.log( "Error ",err );
-			    });
-				break;
+	    case "cut":
+		toSend["type"] = "delete";
+		toSend["text"] = change.removed[0];
+		fayeClient.publish("/"+id+"/delete", toSend, function(err){
+		    console.log( "Error ",err );
+		});
+		break;
 
-		    case "+input":
-				toSend["text"] = change.text[0];
-				fayeClient.publish("/"+id+"/add", toSend, function(err){
-					console.log( "Error ",err );
-			    });
-				break;
+	    case "+input":
+		toSend["type"] = "add";
+		toSend["text"] = change.text[0];
+		fayeClient.publish("/"+id+"/add", toSend, function(err){
+		    console.log( "Error ",err );
+		});
+		break;
 
-		    case "+delete":
+	    case "+delete":
+		toSend["type"] = "delete";
                 toSend["text"] = change.removed[0];
-				fayeClient.publish("/"+id+"/delete", toSend, function(err){
-					console.log( "Error ",err );
-			    });
-				break;
-		    default:
-				break;
+		fayeClient.publish("/"+id+"/delete", toSend, function(err){
+		    console.log( "Error ",err );
+		});
+		break;
+	    default:
+		break;
 	    }
 	});
 
     });
 
-    var displayUpdates = function(){
-	
+    var insertString = function(recipient, inserted, indexAt) {
+	return ( recipient.slice(0,indexAt) + inserted + recipient.slice(indexAt));
+    };
+
+    var updateStringAdd = function(originalStr, data){
+	originalStr = originalStr.split("\n");
+	originalStr[data.from.line] = insertString(originalStr[data.from.line], data.text, data.from.ch);
+	return originalStr.join("\n");
+    };
+
+    var updateStringDelete = function(originalStr, data){
+	originalStr = originalStr.split("\n");
+	originalStr[data.from.line] = originalStr[data.from.line].substr(0, data.from.ch) + originalStr[data.from.line].substr(data.from.ch + data.text.length);
+	return originalStr.join("\n");
+    };
+
+
+    var displayUpdates = function(message){
+	if(message.type === "add") {
+	    myCodeMirror.replaceRange(message.text,
+				      {
+					  line: message.from.line,
+					  ch: message.from.ch
+				      },
+				      {
+					  line: message.from.line,
+					  ch: message.from.ch
+				      });
+	} else if (message.type === "delete") {
+	    myCodeMirror.replaceRange("",
+				      {
+					  line: message.from.line,
+					  ch: message.from.ch
+				      },
+				      {
+					  line: message.to.line,
+					  ch: message.to.ch
+				      });
+	}
     };
     
     fayeClient.handleMessage  = function(message){
-    	if(id != message.clientId){
-    	    displayUpdates();
+    	if(uuid != message.source){
+    	    displayUpdates(message);
     	}
     };
-
 });
 
