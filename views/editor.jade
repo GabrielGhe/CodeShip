@@ -1,10 +1,11 @@
 extends layout
 
 block content
-    h1= title
-    div#editor(ng-controller='UpdateCtrl')
-    .container(ng-controller='ChatCtrl')
-        h2 Chat
+    .editor-container.containers
+        h2= title
+        div#editor(ng-controller='UpdateCtrl')
+    .chat-container.containers(ng-controller='ChatCtrl')
+        h2 Chat - {{ verified_author }}
         section#messages.clearfix
           .table-wrapper
             table.table
@@ -28,15 +29,15 @@ block content
                   | {{ message.content }}
         form.well.clearfix(role='form', ng-submit='sendMessage()')
           .row
-            .col-xs-3
-              .input-group
+            .chat-form-div
+              .input-group.username(ng-hide='verified_author')
                 span.input-group-addon
                   span.glyphicon.glyphicon-user
-                input.input.input-lg.form-control(ng-model='author', placeholder='Your Name')
-            .col-xs-7
-              input.input.input-lg.form-control(ng-model='newMessage', ng-disabled='sendingMessage', placeholder='What\'s up?')
-            .col-xs-2
-              button.btn.btn-primary.btn-lg.btn-block(type='submit') Send
+                input.input.form-control(ng-model='author', placeholder='Your Name')
+            .chat-form-div
+              textarea.input.form-control(ng-model='newMessage', ng-disabled='sendingMessage', placeholder='Say something')
+            .chat-form-div
+              button.btn.btn-primary.btn-block(type='submit') Send
 
     script(src='/js/lib/angular.js')
     != js('lib/bootstrap.min')
@@ -47,5 +48,9 @@ block content
         var local_data ='!{content}'
     <script src='/js/chat.js'></script>
     <script src='/js/updates.js'></script>
-
-
+    .share-container.containers
+        h2 Share
+        button.btn.btn-default.btn-share.btn-block#email-submit Via Email
+        button.btn.btn-default.btn-share.btn-block.btn-github#text-submit Via Github
+        button.btn.btn-default.btn-share.btn-block.btn-facebook#facebook-submit Via Facebook
+        button.btn.btn-default.btn-share.btn-block.btn-google-plus#google-submit Via Google+

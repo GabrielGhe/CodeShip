@@ -1,7 +1,6 @@
 var chat = angular.module('Chat', ['goangular']);
 console.log( 'chat',chat );
 chat.config(function($goConnectionProvider) {
-    //TODO replace with app.locals.connectUrl
     $goConnectionProvider.$set('https://goinstant.net/e106cb106c84/mchacks');
 });
 chat.controller('ChatCtrl', function($scope, $goKey) {
@@ -18,6 +17,7 @@ chat.controller('ChatCtrl', function($scope, $goKey) {
 	if(!$scope.newMessage) {
 	    return;
 	}
+	$scope.verified_author = $scope.author;
 
 	$scope.messages.$add({
 	    content: $scope.newMessage,

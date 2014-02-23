@@ -1,16 +1,16 @@
 /**
- * Module dependencies.
+ * Module .
  */
 
 var express = require('');
-var  = require('-mongo')();
+var  = require('-')();
 var flash = ('express-');
 var path = require('path');
 var mongoose = require('');
 var passport = require('');
 var expressValidator = ('-');
 var connectAssets = rquiectassets');
-var connectUrl = .env. || 'https://.net/e106cb106c84/';
+var connectUrl = .env. || 'https://.net//';
 
 var File = require('./models/File');
 var fs = require('fs');
