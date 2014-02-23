@@ -5,19 +5,6 @@ chat.config(function($goConnectionProvider) {
 	$goConnectionProvider.$set('https://goinstant.net/e106cb106c84/mchacks');
 });
 
-
-
-chat.directive('keytouch', function() {
-	return function( scope, elem ) {
-	    elem.bind('keydown', function( event ) {
-	      scope.$broadcast('keydown', event.keyCode );
-	    });
-	}
-});
-
-
-
-
 chat.controller('ChatCtrl', function($scope, $goKey) {
 	$scope.messages = $goKey('messages').$sync();
 
@@ -50,14 +37,5 @@ chat.controller('ChatCtrl', function($scope, $goKey) {
 			$('#messages').scrollTop($('.table-wrapper').children().height());
 		}, 0);
 	}
-
-	$scope.$on('keydown', function( msg, code ) {
-	    console.log('asdsd');
-	    // up arrow
-        if (code == 13) {
-        	$scope.sendMessage;
-
-        }
-	});
 });
 
