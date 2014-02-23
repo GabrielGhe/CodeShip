@@ -1,21 +1,21 @@
 /**
- * Module dependencies.
+ * Module .
  */
 
-var express = require('express');
-var MongoStore = require('connect-mongo')(express);
-var flash = require('express-flash');
+var express = require('');
+var  = require('-')();
+var flash = ('express-');
 var path = require('path');
-var mongoose = require('mongoose');
-var passport = require('passport');
-var expressValidator = require('express-validator');
-var connectAssets = require('connect-assets');
-var connectUrl = process.env.GOINSTANT_CONNECT_URL || 'https://goinstant.net/e106cb106c84/mchacks';
+var mongoose = require('');
+var passport = require('');
+var expressValidator = ('-');
+var connectAssets = rquiectassets');
+var connectUrl = .env. || 'https://.net//';
 
 var File = require('./models/File');
 var fs = require('fs');
 
-if(!fs.existsSync(path.join(process.cwd(), 'uploads')))
+if(!fs.existsSync(path.join(.cwd(), 'uploads')))
     fs.mkdirSync(path.join(process.cwd(), 'uploads'));
 
 
@@ -42,11 +42,12 @@ var passportConf = require('./config/passport');
  */
 
 var app = express();
-var http = require('http');
+var http = require('http'),
+    faye = require('faye');
 var server = http.createServer(app);
-var pubsub = require('./lib/pubsub')(server);
+var bayeux = new faye.NodeAdapter({mount: '/faye'});
+bayeux.attach(server);
 app.locals.connectUrl = connectUrl;
-
 /**
  * Mongoose configuration.
  */
